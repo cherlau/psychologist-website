@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Interativo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/daisyui@1.20.0/dist/full.js"></script>
+</head>
+<body class="bg-black">
+
+  <!-- Banner com vídeo -->
+  <div class="banner">
+    <div class="relative w-full h-screen overflow-hidden">
+      <!-- Vídeo de fundo -->
+      <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
+        <source src="file.mp4" type="video/mp4" />
+        Seu navegador não suporta o vídeo.
+      </video>
+
+      <!-- Sobreposição com gradiente escuro -->
+      <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center text-white">
+        <!-- Card Centralizado -->
+        <div class="card w-full max-w-lg bg-white text-gray-800 shadow-2xl rounded-lg">
+          <div class="card-body pt-8 pb-8">
+            <!-- Pergunta -->
+            <h2 class="card-title text-2xl font-bold mb-4" id="question">
+              Qual é a sua cor favorita?
+            </h2>
+
+            <!-- Respostas -->
+            <div class="grid grid-cols-1 gap-4 justify-start">
+              <button id="answer1" class="btn btn-primary btn-block text-lg" onclick="nextQuestion(1)">
+                Azul
+              </button>
+              <button id="answer2" class="btn btn-secondary btn-block text-lg" onclick="nextQuestion(2)">
+                Verde
+              </button>
+              <button id="answer3" class="btn btn-accent btn-block text-lg" onclick="nextQuestion(3)">
+                Vermelho
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Lista de perguntas
+    const questions = [
+      {
+        question: "Qual é a sua cor favorita?",
+        answers: ["Azul", "Verde", "Vermelho"]
+      },
+      {
+        question: "Qual é o seu animal favorito?",
+        answers: ["Cachorro", "Gato", "Passarinho"]
+      },
+      {
+        question: "Qual é o seu hobby preferido?",
+        answers: ["Ler", "Viajar", "Cozinhar"]
+      }
+    ];
+
+    // Índice da pergunta atual
+    let currentQuestionIndex = 0;
+
+    // Função para exibir a próxima pergunta
+    function nextQuestion(answerIndex) {
+      // Incrementa a pergunta
+      currentQuestionIndex++;
+
+      // Checa se acabou
+      if (currentQuestionIndex >= questions.length) {
+        document.getElementById("question").innerText = "Obrigado por participar!";
+        document.querySelector(".grid").innerHTML = ""; // Remove os botões
+      } else {
+        const currentQuestion = questions[currentQuestionIndex];
+        document.getElementById("question").innerText = currentQuestion.question;
+
+        const buttons = document.querySelectorAll(".btn");
+        buttons.forEach((btn, index) => {
+          btn.innerText = currentQuestion.answers[index];
+        });
+      }
+    }
+  </script>
+
+</body>
+</html>
